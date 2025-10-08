@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ihsanul Fikri - Portfolio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --accent-color: #60a5fa;
+        --dark-bg: #0f172a;
+        --light-bg: #f8fafc;
+        --text-dark: #1e293b;
+        --text-light: #e2e8f0;
+        --card-bg: #ffffff;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        background-color: var(--light-bg);
+        overflow-x: hidden;
+      }
+
+      /* Navigation */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow);
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      nav.scrolled {
+        box-shadow: var(--shadow-lg);
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+      }
+
+      .menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background: var(--primary-color);
+        transition: all 0.3s ease;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #667eea 10%, #764ba2 100%);
+        position: relative;
+        overflow: hidden;
+        padding: 6rem 2rem 2rem;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>')
+          no-repeat bottom;
+        background-size: cover;
+      }
+
+      .hero-content {
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-text h1 {
+        font-size: 3.5rem;
+        color: white;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+
+      .hero-text h1 span {
+        display: block;
+        font-size: 2rem;
+        color: var(--accent-color);
+        margin-top: 0.5rem;
+      }
+
+      .hero-text p {
+        font-size: 1.25rem;
+        color: var(--text-light);
+        margin-bottom: 2rem;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 0.875rem 2rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background: white;
+        color: var(--primary-color);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+      }
+
+      .btn-secondary:hover {
+        background: white;
+        color: var(--primary-color);
+      }
+
+      .hero-image {
+        position: relative;
+      }
+
+      .hero-image-container {
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 8px solid rgba(255, 255, 255, 0.2);
+        box-shadow: var(--shadow-lg);
+        margin: 0 auto;
+      }
+
+      .hero-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* About Section */
+      .about {
+        padding: 6rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        color: var(--text-dark);
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--primary-color);
+        border-radius: 2px;
+      }
+
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .about-text h3 {
+        font-size: 1.75rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+
+      .about-text p {
+        color: #64748b;
+        margin-bottom: 1rem;
+        line-height: 1.8;
+      }
+
+      .skills {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .skill-item {
+        background: var(--card-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .skill-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--primary-color);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+      }
+
+      /* Experience Section */
+      .experience {
+        background: var(--dark-bg);
+        color: var(--text-light);
+        padding: 6rem 2rem;
+      }
+
+      .experience .section-title {
+        color: white;
+      }
+
+      .timeline {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 100%;
+        background: var(--primary-color);
+      }
+
+      .timeline-item {
+        margin-bottom: 3rem;
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .timeline-item:nth-child(odd) {
+        flex-direction: row;
+      }
+
+      .timeline-item:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+
+      .timeline-content {
+        width: 45%;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        backdrop-filter: blur(10px);
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 20px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        border: 4px solid var(--dark-bg);
+      }
+
+      .timeline-content h3 {
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-content .date {
+        color: #94a3b8;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Portfolio Gallery */
+      .portfolio {
+        padding: 6rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .gallery-item {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+        aspect-ratio: 4/3;
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-10px);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.1);
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        padding: 2rem 1.5rem 1.5rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        transform: translateY(0);
+      }
+
+      .gallery-overlay h3 {
+        color: white;
+        font-size: 1.25rem;
+      }
+
+      /* Contact Section */
+      .contact {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 6rem 2rem;
+      }
+
+      .contact .section-title {
+        color: white;
+      }
+
+      .contact-content {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .social-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .social-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: white;
+        border: 2px solid transparent;
+      }
+
+      .social-card:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-5px);
+        border-color: white;
+      }
+
+      .social-icon {
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+      }
+
+      .social-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .social-card p {
+        color: var(--text-light);
+        font-size: 0.875rem;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--dark-bg);
+        color: var(--text-light);
+        text-align: center;
+        padding: 2rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: flex;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 70px;
+          left: -100%;
+          width: 100%;
+          background: white;
+          flex-direction: column;
+          padding: 2rem;
+          box-shadow: var(--shadow-lg);
+          transition: left 0.3s ease;
+        }
+
+        .nav-links.active {
+          left: 0;
+        }
+
+        .hero-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .hero-text h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero-image-container {
+          width: 300px;
+          height: 300px;
+        }
+
+        .about-content {
+          grid-template-columns: 1fr;
+        }
+
+        .timeline::before {
+          left: 20px;
+        }
+
+        .timeline-item {
+          flex-direction: row !important;
+          padding-left: 50px;
+        }
+
+        .timeline-content {
+          width: 100%;
+        }
+
+        .timeline-dot {
+          left: 20px;
+        }
+
+        .skills {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-buttons {
+          justify-content: center;
+        }
+      }
+
+      /* Scroll Animation */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav id="navbar">
+      <div class="nav-container">
+        <div class="logo">Ihsanul Fikri</div>
+        <div class="menu-toggle" id="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#portfolio">Pengalaman</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>
+            Hi, I'm Ihsanul Fikri
+            <span>Photographer & Information Systems Student</span>
+          </h1>
+          <p>
+            Mengabadikan momen dan menciptakan cerita melalui Foto. Fotografer
+            Freelance dengan pengalaman lebih dari 5 tahun dan Seorang Mahasiswa
+            Sistem Informasi
+          </p>
+          <div class="cta-buttons">
+            <a href="#portfolio" class="btn btn-primary">Pengalaman saya</a>
+            <a href="#contact" class="btn btn-secondary">Hubungi Saya</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="hero-image-container">
+            <img
+              src="profile.jpg"
+              alt="Professional portrait photograph of Ihsanul Fikri, young male photographer holding camera in modern photography studio with soft dramatic lighting and neutral backdrop"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about fade-in">
+      <h2 class="section-title">Tentang Saya</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <h3>Freelance Photographer & Tech Enthusiast</h3>
+          <p>
+            Saya seorang Fotografer Freelance daritahun 2019. Selama
+            bertahun-tahun, saya telah mengerjakan berbagai proyek dokumentasi
+            untuk berbagai acara.
+          </p>
+          <p>
+            Saat ini sedang menempuh Pendidikan Sarjana Sistem Informasi di UPN
+            "Veteran" Jawa Timur, karena kebutuhan pasar kerja yang tinggi,
+            peluang karier yang luas di berbagai sektor, dan memadukan antara
+            ilmu teknologi dan bisnis.
+          </p>
+          <p>
+            Sebagai Staf di Divisi Multimedia BEM Fakultas Ilmu Komputer, saya
+            aktif berkontribusi dalam membuat konten visual yang menarik untuk
+            acara Organisasi maupun Fakultas Ilmu Komputer UPNVJT.
+          </p>
+        </div>
+        <div class="skills">
+          <div class="skill-item">
+            <div class="skill-icon">📸</div>
+            <div>
+              <strong>Event Photography</strong>
+              <p>Professional event documentation</p>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon">🖼️</div>
+            <div>
+              <strong>Designer</strong>
+              <p>Creative video production</p>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon">✂️</div>
+            <div>
+              <strong>Photo Editing</strong>
+              <p>Post-production expertise</p>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon">💻</div>
+            <div>
+              <strong>Information Systems</strong>
+              <p>Technical knowledge & analysis</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience fade-in">
+      <h2 class="section-title">Experience & Education</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Staff Bidang Multimedia</h3>
+            <div class="date">April 2025 - Present</div>
+            <p>BEM Fakultas Ilmu Komputer UPN "Veteran" Jawa Timur</p>
+            <p>
+              Membuat dan mengelola Semua Informasi yang akan di publikasi ke KM
+              maupun pihak Eksternal Kampus. Bertanggung jawab atas fotografi,
+              Desain, dan Penanggung Jawab Proker DESIGNVERSE 2025.
+            </p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Information Systems Student</h3>
+            <div class="date">2024 - Present</div>
+            <p>UPN "Veteran" East Java</p>
+            <p>
+              Meahasiswa S1 Sistem Informasi, Mengembangkan keterampilan dalam
+              analisis sistem, manajemen basis data, sambil mempertahankan
+              kegiatan kreatif.
+            </p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Freelance Photographer</h3>
+            <div class="date">August 2019 - October 2024</div>
+            <p>Jscrtt Studio</p>
+            <p>
+              JSCRTT Studio adalah studio kreatif yang berspesialisasi dalam
+              fotografi, videografi, dan penyuntingan video. Berhasil
+              mendokumentasikan berbagai acara dan menghasilkan konten visual
+              yang menarik. Mengembangkan keahlian dalam mengabadikan momen yang
+              menarik melalui media visual.
+            </p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Photographer - School Supporter Organization</h3>
+            <div class="date">2021 - 2024</div>
+            <p>SMAN 3 Sidoarjo - Vamos Drei</p>
+            <p>
+              Bertugas sebagai Fotografer untuk organisasi supporter sekolah.
+              Mendokumentasikan berbagai acara dan kegiatan lomba sekolah.
+              Mengasah keterampilan dalam fotografi acara dan komposisi kreatif.
+            </p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio fade-in">
+      <h2 class="section-title">Pengalaman saya</h2>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img
+            src="mulmedall.jpg"
+            alt="Menjadi Staff Bidang Multimedia BEM Fasilkom UPNVJT Peridode 2024/2025"
+          />
+          <div class="gallery-overlay">
+            <h3>BEM Fasilkom UPNVJT</h3>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="Sport.jpg"
+            alt="Menjadi Photographer di Organisasi Supporter SMAN 3 Sidoarjo"
+          />
+          <div class="gallery-overlay">
+            <h3>Sports Photography</h3>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="Potrait.png"
+            alt="Melakukan Jasa Potrait Photography Dari @JSCRTT Studio"
+          />
+          <div class="gallery-overlay">
+            <h3>Portrait Photography</h3>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="ISP.jpg"
+            alt="Menjadi panitia di International Summer Program di UPN 'Veteran' Jawa Timur dengan mendatangkan Mahasiswa International"
+          />
+          <div class="gallery-overlay">
+            <h3>International Summer Program</h3>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="Bimtek.png"
+            alt="Menjadi perwakilan pemuda Sidoarjo untuk belajar banyak hal tentang Agrobisnis dan Agroteknologi langsung dari perkebunan yang menerapkan sistem IoT."
+          />
+          <div class="gallery-overlay">
+            <h3>BIMTEK Pemuda DISPORAPAR Sidoarjo</h3>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="fasilkomfest.png"
+            alt="Berkesempatan bergabung dengan panitia acara yang diselenggarakan oleh BEM Fakultas Ilmu Komputer UPN 'Veteran' Jawa Timur, yaitu Fasilkom Fest 2024."
+          />
+          <div class="gallery-overlay">
+            <h3>Fasilkom Fest 2024 UPNVJT</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact fade-in">
+      <h2 class="section-title">Hubungi Saya</h2>
+      <div class="contact-content">
+        <p style="text-align: center; font-size: 1.125rem; margin-bottom: 2rem">
+          Let's work together to capture your special moments or discuss
+          opportunities for collaboration.
+        </p>
+        <div class="social-links">
+          <a
+            href="https://www.instagram.com/ihsannulf_/"
+            target="_blank"
+            class="social-card"
+          >
+            <div class="social-icon">📷</div>
+            <h3>Instagram</h3>
+            <p>@Ihsannulf_</p>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/ihsanul-fikri-958774306/"
+            target="_blank"
+            class="social-card"
+          >
+            <div class="social-icon">💼</div>
+            <h3>LinkedIn</h3>
+            <p>Connect with me professionally</p>
+          </a>
+
+          <a href="mailto:ihsanulfikri3176@gmail.com" class="social-card">
+            <div class="social-icon">✉️</div>
+            <h3>Email</h3>
+            <p>ihsanulfikri3176@gmail.com</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Ihsanul Fikri. All rights reserved.</p>
+      <p>Freelance Photographer | Information Systems Student</p>
+    </footer>
+
+    <script>
+      // Mobile Menu Toggle
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("active");
+        });
+      });
+
+      // Navbar scroll effect
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            const offsetTop = target.offsetTop - 70;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Scroll animation for fade-in elements
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Gallery item click effect
+      document.querySelectorAll(".gallery-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          item.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            item.style.transform = "";
+          }, 200);
+        });
+      });
+
+      // Add active state to navigation based on scroll position
+      window.addEventListener("scroll", () => {
+        let current = "";
+        const sections = document.querySelectorAll("section");
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (window.pageYOffset >= sectionTop - 100) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href").substring(1) === current) {
+            link.classList.add("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
